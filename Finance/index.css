@@ -3,6 +3,16 @@
     margin-top: 93px;
     padding-top: 8px;
     padding-right: 0px;
-    margin-right: 277px;
+    margin-right: 20vw;
     margin-left: 277px;
+}
+
+#getResult{
+    display: block;
+}
+ label{ 
+    padding-left: 1% !important; 
+    padding-right: 0.5% !important;
+    inline-size: 9vw;
+    text-wrap: wrap;
 }
