@@ -32,7 +32,7 @@ function generateResult() {
     console.log(fd_interest * (Math.pow((1 + fd_interest_growth_rate / 100), i)));
   }
 
-  $('#results').html(`<br> Total interest: ${Math.trunc(total_interest)} <br> Effective interest rate: ${(Math.exp(1 / time_period * Math.log(((total_interest + capital) / capital))) - 1) * 100}`);
+  $('#results').html(`<br> Total interest (in lacs): ${Math.trunc(total_interest)}  <br> Total capital at the end of ${time_period} years: ${total_interest + capital}<br>Effective interest rate: ${(Math.exp(1 / time_period * Math.log(((total_interest + capital) / capital))) - 1) * 100}`);
 
   
 
