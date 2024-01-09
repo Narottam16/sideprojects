@@ -36,7 +36,7 @@ function generateResult() {
   var totalAfterTax= (total_interest*0.9) + capital;
   var effectiveRate= (Math.exp(1 / time_period * Math.log(((total_interest + capital) / capital))) - 1) * 100;
 
-  $('#results').html(`<br> Total interest (in lacs): ${Math.trunc(total_interest)}  <br> Total capital (in lacs) at the end of ${time_period} years: ${totalCapital.toFixed(2) }<br>After tax: ${totalAfterTax.toFixed(2)}<br>Effective interest rate: ${effectiveRate.toFixed(2)}`);
+  $('#results').html(`<br> Total interest (in lacs): ${Math.trunc(total_interest)}  <br> Total capital (in lacs) at the end of ${time_period} years: ${totalCapital.toFixed(2) }<br>After tax: ${totalAfterTax.toFixed(2)}<br>Effective interest rate (on initial capital): ${effectiveRate.toFixed(2)}`);
 
   
 
