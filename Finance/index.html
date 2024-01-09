@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>CI projection</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div id="mainDiv">
+      <label class="form-label" style="padding-right: 6px; padding-left: 11px"
+        >Capital:
+      </label>
+      <input id="capitalv" type="text" class="col-sm-2" />
+      <label class="form-label" style="padding-right: 9px; padding-left: 10px"
+        >FD interest rate (after tax):</label
+      ><input id="fdratev" type="text" class="col-sm-2" /><label
+        class="form-label"
+        style="padding-left: 12px; padding-right: 32px"
+        >Investment compounding rate:</label
+      ><input id="investmentratev" type="text" class="col-sm-2" /><label
+        class="form-label"
+        style="padding-left: 12px; padding-right: 41px"
+        >FD interest withdraw amount:</label
+      ><input id="withdrawalamountv" type="text" class="col-sm-2" /><label
+        class="form-label"
+        style="padding-right: 6px; padding-left: 12px"
+        >Time period:</label
+      ><input id="timev" type="text" class="col-sm-2" />
+      <button id="getResult" type="button" class="btn btn-secondary">Calculate</button>
+
+      <p id="results"></p>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="capitalProject.js"></script>
+  </body>
+</html>
