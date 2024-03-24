@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draggable SVG Sector</title>
+</head>
+<body>
+
+<svg id="svg" width="500" height="500" style="border: 1px solid black;">
+    <!-- Placeholder for the sector path -->
+</svg>
+
+<script>
+    const svg = document.getElementById('svg');
+    const center = { x: 250, y: 250 };
+    const radius = 100;
+    let isDragging = false;
+    let angle = 0; // Initial angle
+
+    // Create the sector (path element)
+    const sector = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    sector.setAttribute('fill', 'lightblue');
+    svg.appendChild(sector);
+
+    function drawSector(angle) {
+        const endX = center.x + radius * Math.cos(angle);
+        const endY = center.y + radius * Math.sin(angle);
+
+        // Determine the large-arc-flag (0 if angle < 180 degrees, otherwise 1)
+        const largeArcFlag = angle > Math.PI ? 1 : 0;
+
+        // Construct the 'd' attribute of the path
+        const d = `M ${center.x},${center.y} 
+                   L ${center.x + radius},${center.y} 
+                   A ${radius},${radius} 0 ${largeArcFlag},1 ${endX},${endY} 
+                   Z`;
+
+        sector.setAttribute('d', d);
+    }
+
+    function updateAngleFromMousePosition(mouseX, mouseY) {
+        const dx = mouseX - center.x;
+        const dy = mouseY - center.y;
+        angle = Math.atan2(dy, dx);
+        angle = angle < 0 ? 2 * Math.PI + angle : angle; // Normalize angle between 0 and 2*PI
+        drawSector(angle);
+    }
+
+    svg.addEventListener('mousedown', function(e) {
+        isDragging = true;
+    });
+
+    svg.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const rect = svg.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        updateAngleFromMousePosition(mouseX, mouseY);
+    });
+
+    window.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+    drawSector(Math.PI / 4); // Initial draw with a default angle
+</script>
+
+</body>
+</html>
