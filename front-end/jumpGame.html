@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumping Box Game</title>
+    <style>
+        #gameContainer {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        #box {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="box"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const box = document.getElementById('box');
+    let isJumping = false;
+    let start, previousTimeStamp;
+    const jumpHeight = 100; // Maximum height of the jump
+    const jumpDuration = 500; // Duration of the jump in milliseconds
+
+    box.addEventListener('click', function() {
+        if (isJumping) return; // Prevents initiating a new jump while already jumping
+        isJumping = true;
+        start = null;
+        window.requestAnimationFrame(jump);
+    });
+
+    function jump(timestamp) {
+        if (!start) start = timestamp;
+        const elapsedTime = timestamp - start;
+        if (!previousTimeStamp || timestamp - previousTimeStamp >= (1000 / 60)) {
+            // Simulate jump with a simple easing equation
+            const progress = Math.min(elapsedTime / jumpDuration, 1);
+            const easeInOutQuad = progress < 0.5 ? 2 * progress * progress : -1 + (4 - 2 * progress) * progress;
+            box.style.bottom = (easeInOutQuad * jumpHeight) + 'px';
+
+            previousTimeStamp = timestamp;
+        }
+        if (elapsedTime < jumpDuration) {
+            window.requestAnimationFrame(jump);
+        } else {
+            isJumping = false; // Resets the jumping state once the animation is complete
+        }
+    }
+});
+
+    </script>
+</body>
+</html>
