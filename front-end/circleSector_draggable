@@ -1,0 +1,64 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Draggable Sector</title>
+    <style>
+        canvas { background-color: #fafafa; }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="500" height="500"></canvas>
+
+<script>
+  const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let isDragging = false;
+    const circleCenter = { x: 250, y: 250 };
+    const circleRadius = 100;
+    let angle = Math.PI / 4; // Initial angle
+
+    function drawSector(angle) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+        ctx.beginPath();
+        ctx.lineTo(400, circleCenter.y);
+        ctx.arc(circleCenter.x, circleCenter.y, circleRadius, 0, angle, false);
+        ctx.closePath();
+        ctx.fillStyle = 'lightblue';
+        ctx.fill();
+        ctx.stroke();
+
+        // Draw circle outline for better visibility
+        //ctx.beginPath();
+       // ctx.arc(circleCenter.x, circleCenter.y, circleRadius, 0, Math.PI * 2, false);
+       // ctx.stroke();
+    }
+
+    function updateAngle(mouseX, mouseY) {
+        const dx = mouseX - circleCenter.x;
+        const dy = mouseY - circleCenter.y;
+        angle = Math.atan2(dy, dx);
+        angle = angle < 0 ? 2 * Math.PI + angle : angle; // Normalize angle between 0 and 2*PI
+        drawSector(angle);
+    }
+
+    canvas.addEventListener('mousedown', function(e) {
+        isDragging = true;
+    });
+
+    canvas.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        updateAngle(mouseX, mouseY);
+    });
+
+    window.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+    drawSector(angle); // Initial draw
+  </script>
+
+</body>
